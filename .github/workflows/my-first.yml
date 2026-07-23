@@ -1,4 +1,4 @@
-name: my-action
+name: Frontend CI
 
 on:
   push:
@@ -6,24 +6,38 @@ on:
       - main
 
 jobs:
- frontend:
+  frontend:
     runs-on: ubuntu-latest
 
-    #defaults:
-     # run:
-      #  working-directory: frontend
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-        
 
-      - name: Install Packages
+      - name: Verify Node Version
+        run: node -v
+
+      - name: Verify npm Version
+        run: npm -v
+
+      - name: Show Current Directory
+        run: pwd
+
+      - name: List Files
+        run: ls -la
+
+      - name: Find package.json
+        run: find . -name package.json
+
+      - name: Install Dependencies
         run: npm install
 
       - name: Start Application
