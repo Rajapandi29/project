@@ -75,3 +75,25 @@ jobs:
         run: docker compose up -d
       - name: stop docker compose
         run: docker compose down
+  terraform:
+    name: terraform
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: terraform setup
+        uses: hashicorp/setup-terraform@v3
+        with: version: 1.12.6
+      - name: terraform init
+        run: terraform init
+      - name: terraform plan check
+        run: terraform plan
+      - name: terraform apply
+        run: terraform apply
+      - name: terraform destroy
+        run: terraform destroy
+        
+
