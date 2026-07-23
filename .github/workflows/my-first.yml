@@ -21,6 +21,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Show Files
+  run: |
+    pwd
+    ls -la
+    find . -name package.json
 
       - name: Install Packages
         run: npm install
