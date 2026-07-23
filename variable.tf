@@ -1,12 +1,13 @@
-variable "aws"{
-    region = String
+variable "region"{
+    type = string
 }
 
-variable "aws_vpc"{
-    cidr_block = String
+variable "vpc_cidr_block"{
+     type= string
 }
-variable "aws_subnet"{
-    cidr_block = String
-    availability_zone = String
-    
+variable "public_subnet_cidr_block"{
+    type = string
+}
+variable "availability_zone"{
+    type = string
 }
