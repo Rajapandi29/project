@@ -1,0 +1,20 @@
+{
+  "name": "employee-management-frontend",
+  "version": "1.0.0",
+  "description": "Employee Management Frontend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "employee",
+    "frontend",
+    "nodejs"
+  ],
+  "author": "DevOps",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
