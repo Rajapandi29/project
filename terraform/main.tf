@@ -52,13 +52,13 @@ resource "aws_security_group" "my" {
 }
 resource "aws_route_table" "route" {
   vpc_id = aws_vpc.main.id
-  tags {
+  tags = {
     Name = "my-route"
   }
 }
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
-  tags{
+  tags = {
     Name = "my-gateway"
   }
 }
@@ -67,13 +67,17 @@ resource "aws_route" "internet" {
   destination_cidr_block = var.destination_cidr_block
   gateway_id = aws_internet_gateway.igw.id
 }
-resource "aws_route_association" "public" {
+resource "aws_route_table_association" "public" {
   subnet_id = aws_subnet.public.id
   route_table_id = aws_route_table.route.id
 }
-resource "aws_NAT_gateway" "my-nat" {
-  vpc_id = aws_vpc.main.id
-  tags{
+resource "aws_eip" "nat" {
+  domain = "vpc"
+}
+resource "aws_nat_gateway" "my-nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id = aws_subnet.public.id
+  tags = {
     Name = "my-nat"
   }
 }
