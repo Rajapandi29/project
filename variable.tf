@@ -17,3 +17,6 @@ variable "private_subnet_cidr_block"{
 variable "private_availability_zone"{
     type = string
 }
+variable "destination_cidr_block"{
+    type = string
+}

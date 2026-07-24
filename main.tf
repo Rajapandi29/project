@@ -50,3 +50,30 @@ resource "aws_security_group" "my" {
     cidr_blocks  = ["0.0.0.0/0"]
   }
 }
+resource "aws_route_table" "route" {
+  vpc_id = aws_vpc.main.id
+  tags {
+    Name = "my-route"
+  }
+}
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+  tags{
+    Name = "my-gateway"
+  }
+}
+resource "aws_route" "internet" {
+  route_table_id = aws_route_table.route.id
+  destination_cidr_block = var.destination_cidr_block
+  gateway_id = aws_internet_gateway.igw.id
+}
+resource "aws_route_association" "public" {
+  subnet_id = aws_subnet.public.id
+  route_table_id = aws_route_table.route.id
+}
+resource "aws_NAT_gateway" "my-nat" {
+  vpc_id = aws_vpc.main.id
+  tags{
+    Name = "my-nat"
+  }
+}
